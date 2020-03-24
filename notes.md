@@ -61,3 +61,20 @@ class App extends React.Component {
 
 ReactDOM.render(<App />, document.querySelector("#root"));
 ```
+
+# Component Lifecycle Methods:
+
+-   Sequence:
+    constructor -> render -> componentDidMount -> componentDidUpdate -> componentWillUnmount
+
+-   constructor: called during component initialisation
+    -> used for one-time setup stuff
+    -> by convention, do any data-loading within componentDidMount and not here for centralised data-loading
+-   render: called whenver state is updated (i.e. through `setState`)
+    -> avoid doing anything besides returning JSX
+-   componentDidMount: called immediately after content is visible on screen
+    -> good place to do data loading
+-   componentDidUpdate: waits to be called **after** and update (i.e. **after** render as been called)
+    -> good place to do more data-loading when state/props change
+-   componentWillUnmount: called when component is no longer shown
+    -> good place to do cleanup (especially for non-React stuff)
