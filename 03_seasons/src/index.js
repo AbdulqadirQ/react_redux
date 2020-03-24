@@ -17,7 +17,7 @@ class App extends React.Component {
         );
     }
 
-    render() {
+    renderContent() {
         if (this.state.errorMessage) {
             return <div>Error: {this.state.errorMessage}</div>;
         }
@@ -26,6 +26,10 @@ class App extends React.Component {
         } else {
             return <Loader />;
         }
+    }
+
+    render() {
+        return <div className="border red">{this.renderContent()}</div>;
     }
 }
 
