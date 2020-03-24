@@ -4,6 +4,8 @@
 const App = () => {
     // The function `getCurrentPosition`: https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
     // a successfull call stores the geolocation within `position`. error stores within `err`
+    // NOTE: we're actually PASSING a callback function into `getCurrentPosition`. `getCurrentPosition` doesn't store
+    // the result on its own
     window.navigator.geolocation.getCurrentPosition(
         position => console.log(position),
         err => console.log(err)
