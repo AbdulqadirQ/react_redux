@@ -8,4 +8,8 @@ const Loader = props => {
     );
 };
 
+Loader.defaultProps = {
+    message: "Enable location request"
+};
+
 export default Loader;
