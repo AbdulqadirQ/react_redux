@@ -132,3 +132,42 @@ class SearchBar extends React.Component {
 
 export default SearchBar;
 ```
+
+## Controlled vs Uncontrolled Elements
+
+-   A react app can be split into 'React' side and 'HTML' side
+-   A user interacts with the HTML side, and react attempts to re-render etc.
+
+-   controlled element: ensuring 'React' side knows about the data within HTML side, i.e. ensuring user-input is stored within **state**
+-   uncontrolled element: data only exists within HTML DOM
+
+## A Controlled element for user input, controlling user data through state:
+
+```js
+import React from "react";
+
+class SearchBar extends React.Component {
+    state = { term: "" };
+
+    render() {
+        return (
+            <div className="ui segment">
+                <form className="ui form">
+                    <div className="field">
+                        <label>Image Search</label>
+                        <input
+                            type="text"
+                            // NOTE: we're setting 'input' element to the value it already is. Seems confusing but is just
+                            // React convention
+                            value={this.state.term}
+                            onChange={e => this.setState({ term: e.target.value })}
+                        />
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+export default SearchBar;
+```
