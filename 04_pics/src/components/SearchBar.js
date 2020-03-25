@@ -3,9 +3,10 @@ import React from "react";
 class SearchBar extends React.Component {
     state = { term: "input something..." };
 
-    onFormSubmit(event) {
+    onFormSubmit = event => {
         event.preventDefault(); // Disables form's default auto-submit when enter is pressed
-    }
+        console.log(this.state.term);
+    };
 
     render() {
         return (

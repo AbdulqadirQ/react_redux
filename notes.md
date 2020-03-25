@@ -171,3 +171,118 @@ class SearchBar extends React.Component {
 
 export default SearchBar;
 ```
+
+# Binding and 'this' keyword:
+
+-   when using `this`, e.g. `this.state.myInput`, if this is not correctly binded to the class object, it would lead to 'TypeError: Cannot read property 'state' of undefined', since `this` may refer to `undefined`
+-   There are a few methods to ensure we explicitly bind the element
+
+## METHOD 1
+
+```js
+import React from "react";
+
+class SearchBar extends React.Component {
+    state = { term: "input something..." };
+
+    // DOES THE BINDING
+    constructor() {
+        super();
+        this.onFormSubmit = this.onFormSubmit.bind(this);
+    }
+
+    onFormSubmit(event) {
+        event.preventDefault(); // Disables form's default auto-submit when enter is pressed
+        console.log(this.state.term);
+    }
+
+    render() {
+        return (
+            <div className="ui segment">
+                <form onSubmit={this.onFormSubmit} className="ui form">
+                    <div className="field">
+                        <label>Image Search</label>
+                        <input
+                            type="text"
+                            value={this.state.term}
+                            onChange={e => this.setState({ term: e.target.value })}
+                        />
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+export default SearchBar;
+```
+
+## METHOD 2
+
+```js
+import React from "react";
+
+class SearchBar extends React.Component {
+    state = { term: "input something..." };
+
+    // DOES THE BINDING
+    onFormSubmit = event => {
+        event.preventDefault(); // Disables form's default auto-submit when enter is pressed
+        console.log(this.state.term);
+    };
+
+    render() {
+        return (
+            <div className="ui segment">
+                <form onSubmit={this.onFormSubmit} className="ui form">
+                    <div className="field">
+                        <label>Image Search</label>
+                        <input
+                            type="text"
+                            value={this.state.term}
+                            onChange={e => this.setState({ term: e.target.value })}
+                        />
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+export default SearchBar;
+```
+
+## METHOD 3
+
+```js
+import React from "react";
+
+class SearchBar extends React.Component {
+    state = { term: "input something..." };
+
+    onFormSubmit(event) {
+        event.preventDefault(); // Disables form's default auto-submit when enter is pressed
+        console.log(this.state.term);
+    }
+
+    render() {
+        return (
+            <div className="ui segment">
+                {/* DOES THE BINDING */}
+                <form onSubmit={event => this.onFormSubmit(event)} className="ui form">
+                    <div className="field">
+                        <label>Image Search</label>
+                        <input
+                            type="text"
+                            value={this.state.term}
+                            onChange={e => this.setState({ term: e.target.value })}
+                        />
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+export default SearchBar;
+```
