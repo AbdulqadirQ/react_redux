@@ -5,7 +5,8 @@ class SearchBar extends React.Component {
 
     onFormSubmit = event => {
         event.preventDefault(); // Disables form's default auto-submit when enter is pressed
-        console.log(this.state.term);
+        // invokes App.js onSearchSubmit with `this.state.term`, effectively allowing child component to pass data to parent
+        this.props.onSubmit(this.state.term);
     };
 
     render() {
