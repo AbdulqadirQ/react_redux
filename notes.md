@@ -78,3 +78,57 @@ ReactDOM.render(<App />, document.querySelector("#root"));
     -> good place to do more data-loading when state/props change
 -   componentWillUnmount: called when component is no longer shown
     -> good place to do cleanup (especially for non-React stuff)
+
+# Event Handlers:
+
+-   The following two provide the exact same functionality:
+
+## SYNTAX 1:
+
+```js
+import React from "react";
+
+class SearchBar extends React.Component {
+    onInputChange(event) {
+        console.log(event.target.value);
+    }
+
+    render() {
+        return (
+            <div className="ui segment">
+                <form className="ui form">
+                    <div className="field">
+                        <label>Image Search</label>
+                        <input type="text" onChange={this.onInputChange} />
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+export default SearchBar;
+```
+
+## SYNTAX 2:
+
+```js
+import React from "react";
+
+class SearchBar extends React.Component {
+    render() {
+        return (
+            <div className="ui segment">
+                <form className="ui form">
+                    <div className="field">
+                        <label>Image Search</label>
+                        <input type="text" onChange={event => console.log(event.target.value)} />
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+export default SearchBar;
+```
