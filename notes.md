@@ -463,3 +463,23 @@ class App extends React.Component {
 
 export default App;
 ```
+
+# MAP statements:
+
+```js
+const numbers = [0, 1, 2, 3, 4];
+let newNumbers = [];
+
+/* METHOD 1: for loops which is what maps do interanlly: */
+for (let i = 0; i < numbers.length; i++) {
+    newNumbers.push(numbers[i] * 10);
+}
+
+/* METHOD 2: long-form map function */
+numbers.map(num => {
+    return num * 10;
+});
+
+/* METHOD 3: short-hand map function */
+numbers.map(num => num * 10);
+```
