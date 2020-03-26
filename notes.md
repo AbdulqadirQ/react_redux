@@ -287,6 +287,82 @@ class SearchBar extends React.Component {
 export default SearchBar;
 ```
 
+### BIND FIX EXAMPLE (with an async function):
+
+```js
+import React from "react";
+import axios from "axios";
+import SearchBar from "./SearchBar";
+
+class App extends React.Component {
+    state = { images: [] };
+
+    onSearchSubmit = async term => {
+        //  WAS PREVIOUSLY: `async onSearchSubmit(term) {`
+        const response = await axios.get("https://api.unsplash.com/search/photos", {
+            params: { query: term },
+            headers: {
+                Authorization: "Client-ID 8f963700517eb3bed42120eef3cb86dbe68052ea1f6cb81797e1a4761195e9cb"
+            }
+        });
+
+        // Since onSearchSubmit is actually being called in another class (since it's passed as a prop within SearchBar),
+        // `this` in `this.setState` refers to the SearchBar class. This line will therefore cause an error if not bound
+        this.setState({ images: response.data.results });
+    };
+
+    render() {
+        return (
+            <div className="ui container" style={{ marginTop: "10px" }}>
+                <SearchBar onSubmit={this.onSearchSubmit} />
+                Found: {this.state.images.length} images
+            </div>
+        );
+    }
+}
+
+export default App;
+```
+
+##### This binding issue can equally be solved using the legacy method (METHOD 1):
+
+```js
+import React from "react";
+import axios from "axios";
+import SearchBar from "./SearchBar";
+
+class App extends React.Component {
+    state = { images: [] };
+
+    constructor() {
+        super();
+        this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    }
+
+    async onSearchSubmit(term) {
+        const response = await axios.get("https://api.unsplash.com/search/photos", {
+            params: { query: term },
+            headers: {
+                Authorization: "Client-ID 8f963700517eb3bed42120eef3cb86dbe68052ea1f6cb81797e1a4761195e9cb"
+            }
+        });
+
+        this.setState({ images: response.data.results });
+    }
+
+    render() {
+        return (
+            <div className="ui container" style={{ marginTop: "10px" }}>
+                <SearchBar onSubmit={this.onSearchSubmit} />
+                Found: {this.state.images.length} images
+            </div>
+        );
+    }
+}
+
+export default App;
+```
+
 # API Calls
 
 -   Can use `fetch` or `axios` to make calls, however `axios` is preferred
