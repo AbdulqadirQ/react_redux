@@ -3,6 +3,8 @@ import React from "react";
 class ImageCard extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = { spans: 0 };
         this.imageRef = React.createRef();
     }
 
@@ -11,13 +13,15 @@ class ImageCard extends React.Component {
     }
 
     setSpans = () => {
-        console.log(this.imageRef.current.clientHeight);
+        const height = this.imageRef.current.clientHeight;
+        const spans = Math.ceil(height / 200); //  divide by css `grid-auto-rows` rule which is set to 200px
+        this.setState({ spans: spans }); // can be shortened to just `this.setState({ spans });`
     };
 
     render() {
         const { description, urls } = this.props.image;
         return (
-            <div>
+            <div style={{ gridRowEnd: `span ${this.state.spans}` }}>
                 <img ref={this.imageRef} alt={description} src={urls.regular} />
             </div>
         );
