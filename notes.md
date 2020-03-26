@@ -286,3 +286,9 @@ class SearchBar extends React.Component {
 
 export default SearchBar;
 ```
+
+# API Calls
+
+-   Can use `fetch` or `axios` to make calls, however `axios` is preferred
+
+-   To install axios for a project: `npm install --save axios`
