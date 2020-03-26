@@ -483,3 +483,21 @@ numbers.map(num => {
 /* METHOD 3: short-hand map function */
 numbers.map(num => num * 10);
 ```
+
+# Keys for props in lists
+
+-   React provides better performance if keys are attributed to elements in a list that would be rendered to the DOM.
+-   e.g. rendering a List object containing 10 <img> elements would perform better if each <img> was given a unique ID.
+-   An ID only needs to be assigned to the **root** element of the list. e.g. if each element in the list was an <img> wrapped in a <div>, we'd only assign an ID to the <div> since it's the root of the element
+
+-   e.g:
+
+```js
+const images = props.images.map(image => {
+    return (
+        <div key={image.id}>
+            <img src={image.urls.regular} />
+        </div>
+    );
+});
+```
