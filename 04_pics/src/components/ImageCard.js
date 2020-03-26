@@ -14,7 +14,7 @@ class ImageCard extends React.Component {
 
     setSpans = () => {
         const height = this.imageRef.current.clientHeight;
-        const spans = Math.ceil(height / 200); //  divide by css `grid-auto-rows` rule which is set to 200px
+        const spans = Math.ceil(height / 10); //  divide by css `grid-auto-rows` rule which is set to 10px
         this.setState({ spans: spans }); // can be shortened to just `this.setState({ spans });`
     };
 
