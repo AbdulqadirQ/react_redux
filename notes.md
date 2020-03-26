@@ -518,3 +518,35 @@ const images = props.images.map(({ description, id, urls }) => {
 });
 return <div>{images}</div>;
 ```
+
+# React Ref system
+
+-   React's 'Ref' system replaces Javascript's `document.queryselector`
+-   It's a way to access the HTML DOM, but does it in a React-y way (doesn't actually access HTML DOM?)
+-   E.g. creating a Ref for an image allows us to access the image's properties when it's rendered on the HTML DOM
+
+```js
+import React from "react";
+
+class ImageCard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.imageRef = React.createRef();
+    }
+
+    componentDidMount() {
+        console.log(this.imageRef);
+    }
+
+    render() {
+        const { description, urls } = this.props.image;
+        return (
+            <div>
+                <img ref={this.imageRef} alt={description} src={urls.regular} />
+            </div>
+        );
+    }
+}
+
+export default ImageCard;
+```
