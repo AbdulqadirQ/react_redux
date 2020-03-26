@@ -292,3 +292,98 @@ export default SearchBar;
 -   Can use `fetch` or `axios` to make calls, however `axios` is preferred
 
 -   To install axios for a project: `npm install --save axios`
+
+*   When a request is sent with Axios, it works asynchronously so the request can be generated in the background
+    Once ready, axios returns a `promise` containing the response. There are 2 ways to get this `promise`:
+
+## METHOD 1:
+
+```js
+import React from "react";
+import axios from "axios";
+import SearchBar from "./SearchBar";
+
+class App extends React.Component {
+    onSearchSubmit(term) {
+        axios
+            .get("https://api.unsplash.com/search/photos", {
+                params: { query: term },
+                headers: {
+                    Authorization: "Client-ID 8f963700517eb3bed42120eef3cb86dbe68052ea1f6cb81797e1a4761195e9cb"
+                }
+            })
+            .then(response => {
+                console.log(response.data.results);
+            });
+    }
+
+    render() {
+        return (
+            <div className="ui container" style={{ marginTop: "10px" }}>
+                <SearchBar onSubmit={this.onSearchSubmit} />
+            </div>
+        );
+    }
+}
+
+export default App;
+import React from "react";
+import axios from "axios";
+import SearchBar from "./SearchBar";
+
+class App extends React.Component {
+    onSearchSubmit(term) {
+        axios
+            .get("https://api.unsplash.com/search/photos", {
+                params: { query: term },
+                headers: {
+                    Authorization: "Client-ID 8f963700517eb3bed42120eef3cb86dbe68052ea1f6cb81797e1a4761195e9cb"
+                }
+            })
+            .then(response => {
+                console.log(response.data.results);
+            });
+    }
+
+    render() {
+        return (
+            <div className="ui container" style={{ marginTop: "10px" }}>
+                <SearchBar onSubmit={this.onSearchSubmit} />
+            </div>
+        );
+    }
+}
+
+export default App;
+```
+
+## METHOD 2:
+
+```js
+import React from "react";
+import axios from "axios";
+import SearchBar from "./SearchBar";
+
+class App extends React.Component {
+    async onSearchSubmit(term) {
+        const response = await axios.get("https://api.unsplash.com/search/photos", {
+            params: { query: term },
+            headers: {
+                Authorization: "Client-ID 8f963700517eb3bed42120eef3cb86dbe68052ea1f6cb81797e1a4761195e9cb"
+            }
+        });
+
+        console.log(response.data.results);
+    }
+
+    render() {
+        return (
+            <div className="ui container" style={{ marginTop: "10px" }}>
+                <SearchBar onSubmit={this.onSearchSubmit} />
+            </div>
+        );
+    }
+}
+
+export default App;
+```
