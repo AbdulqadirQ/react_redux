@@ -501,3 +501,20 @@ const images = props.images.map(image => {
     );
 });
 ```
+
+# Destructuring JSON objects when using map:
+
+```js
+const images = props.images.map(image => {
+    return <img key={image.id} alt={image.description} src={image.urls.regular} />;
+});
+```
+
+<!-- DESTRUCTURE `image` into only the properties we want to use -->
+
+```js
+const images = props.images.map(({ description, id, urls }) => {
+    return <img key={id} alt={description} src={urls.regular} />;
+});
+return <div>{images}</div>;
+```
