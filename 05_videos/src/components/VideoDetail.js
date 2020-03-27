@@ -4,10 +4,18 @@ const VideoDetail = ({ video }) => {
     if (!video) {
         return <div>No Video selected</div>;
     }
+
+    const videoSrc = `https://youtube.com/embed/${video.id.videoId}`;
     return (
-        <div className="ui segment">
-            <h4 className="ui header">{video.snippet.title}</h4>
-            <p>{video.snippet.description}</p>
+        <div>
+            <div className="ui embed">
+                <iframe src={videoSrc} />
+            </div>
+            <div className="ui segment">
+                <h4 className="ui header">{video.snippet.title}</h4>
+
+                <p>{video.snippet.description}</p>
+            </div>
         </div>
     );
 };
