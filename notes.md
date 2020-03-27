@@ -574,3 +574,91 @@ export default ImageCard;
 
 - State:
     - is the central repository of information within the app
+
+!["Redux Lifecycle](./notes_images/redux_lifecycle.png)
+
+## Example Redux Application:
+!["App example"](./notes_images/redux_cycle_with_example.png)
+```js
+// People dropping off a form (Action Creator)
+const createPolicy = (name, amount) => {
+  return { // Aaction (a form)
+    type: "CREATE_POLICY",
+    payload: {
+      name: name,
+      amount: amount
+    }
+  };
+};
+
+const deletePolicy = (name)  => {
+  return {
+    type: "DELETE_POLICY",
+    payload: {
+      name: name
+    }
+  };
+};
+
+const createClaim = (name, amountOfMoneyToCollect) => {
+  return {
+    type: "CREATE_CLAIM",
+    payload: {
+      name: name,
+      amountOfMoneyToCollect: amountOfMoneyToCollect
+    }
+  };
+};
+
+
+// Reducers (Departments!)
+const claimsHistory = (oldListOfClaims = [], action) => {
+  if (action.type === "CREATE_CLAIM"){
+    // SYNTAX NOTE: creates a NEW array containing `oldListOfClaims` and `action.payload`
+    return [...oldListOfClaims,  action.payload];
+  }
+    return oldListOfClaims;
+};
+
+const accounting = (bagOfMoney = 100, action) => {
+  if (action.type === "CREATE_CLAIM"){
+    return bagOfMoney - action.payload.amountOfMoneyToCollect;
+  }
+  else if (action.type === "CREATE_POLICY"){
+    return bagOfMoney + action.payload.amount;
+  }
+  return bagOfMoney;
+
+};
+
+const policies = (oldListOfPolicies = [], action) => {
+  if (action.type === "CREATE_POLICY"){
+    return [...oldListOfPolicies, action.payload.name];
+  }
+  else if (action.type === "DELETE_POLICY"){
+    return oldListOfPolicies.filter(policy => policy !== action.payload.name);
+  }
+  return oldListOfPolicies;
+} ;
+
+const { createStore, combineReducers } = Redux;
+
+const ourDepartments = combineReducers({
+  accounting: accounting,
+  claimsHistory: claimsHistory,
+  policies: policies
+});
+
+const store = createStore(ourDepartments);
+
+store.dispatch(createPolicy("Alex", 20));
+store.dispatch(createPolicy("Jim", 30));
+store.dispatch(createPolicy("Bob", 40));
+
+store.dispatch(createClaim("Alex", 100));
+store.dispatch(createClaim("Jim", 50));
+
+store.dispatch(deletePolicy("Bob"))
+
+console.log(store.getState());
+```
