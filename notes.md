@@ -550,3 +550,27 @@ class ImageCard extends React.Component {
 
 export default ImageCard;
 ```
+
+---
+
+# REDUX
+
+## Redux Cycle:
+
+- Action Creator:
+    - A function that creates or returns a plain JS object (i.e. its only purpose is to create the Action)
+
+- Action:
+    - The plain JS object
+    - Has a `Type` and `Payload` property
+    - describes some **change** we want to make to the data of our app
+
+- dispatch:
+    - takes an action, makes copies of it, then passes it to a number of places in the app
+
+- Reducers:
+    - Is a function which takes in an `Action` and the existing data
+    - It looks at the Action's type to decide how it will update the existing data
+
+- State:
+    - is the central repository of information within the app
