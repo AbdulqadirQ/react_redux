@@ -9,8 +9,8 @@ class SongList extends Component {
 
 // Is what links this Reducer to Store
 const mapStateToProps = state => {
-    console.log(state);
-    return state;
+    // this now allows  'this.props' to equal { songs: state.songs }
+    return { songs: state.songs };
 };
 
 //syntax which invokes the function returned by the `connect()` function
