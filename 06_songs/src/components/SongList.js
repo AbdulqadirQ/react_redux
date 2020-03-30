@@ -7,5 +7,11 @@ class SongList extends Component {
     }
 }
 
+// Is what links this Reducer to Store
+const mapStateToProps = state => {
+    console.log(state);
+    return state;
+};
+
 //syntax which invokes the function returned by the `connect()` function
-export default connect()(SongList);
+export default connect(mapStateToProps)(SongList);
