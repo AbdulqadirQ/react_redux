@@ -20,14 +20,12 @@ class SongList extends Component {
     }
 
     render() {
-        console.log(this.props);
         return <div className="ui divided list">{this.renderList()}</div>;
     }
 }
 
 // Is what links this Reducer to Store
 const mapStateToProps = state => {
-    console.log(state);
     // this now allows  'this.props' to equal { songs: state.songs }
     return { songs: state.songs };
 };
