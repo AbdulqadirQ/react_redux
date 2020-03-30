@@ -695,3 +695,9 @@ export const selectSong = song => {
 ```js
 // selectSong is already imported and can be used
 ```
+
+## Basic Redux App notes:
+!["Redux basix app](notes_images/redux_basic_app.png)
+
+- SongList is connected  to the store through: SongList -> Connect ->  Provider -> Store
+- Whenever the Store is updated, the Provider automatically notifies SongList
