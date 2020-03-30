@@ -662,3 +662,36 @@ store.dispatch(deletePolicy("Bob"))
 
 console.log(store.getState());
 ```
+
+## Imports and Named Exports
+- usually a component can be exported from a file using `export default selectSong`
+  these are then import using: `import selectSong from '../actions/SelectSong.js'`
+- To export multiple components from the same file, we can used Named exports:
+```js
+export const selectSong = song => {
+    return {
+        type: "SONG_SELECTED",
+        payload: song
+    };
+};
+```
+```js
+import { selectSong } from  '../actions/SelectSong';
+```
+
+## Webpack and index.js
+- Any file called `index.js` within a directory is automatically imported. e.g. the example above:
+
+/src/actions/index.js
+```js
+export const selectSong = song => {
+    return {
+        type: "SONG_SELECTED",
+        payload: song
+    };
+};
+```
+/src/index.js
+```js
+// selectSong is already imported and can be used
+```
