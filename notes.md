@@ -701,3 +701,13 @@ export const selectSong = song => {
 
 - SongList is connected  to the store through: SongList -> Connect ->  Provider -> Store
 - Whenever the Store is updated, the Provider automatically notifies SongList
+
+
+
+# Some Dependencies:
+`npm install --save redux react-redux axios redux-thunk`
+
+- redux: isn't React-specific
+- react-redux: allows linking of React and Redux
+- axios: an alternative to using `fetch` for network requsts, except is easier to use
+- redux-thunk: middleware that allows making network requests directly from redux side of the app
