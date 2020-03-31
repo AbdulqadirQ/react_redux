@@ -717,3 +717,78 @@ export const selectSong = song => {
 !["Redux Data Loading Flow"](notes_images/redux_data_loading_flow.png)
 
 - Action Creators are used to initiate data loading
+
+# Making requests directly from Redux and why Middleware is needed:
+
+- usually we'd make a request using axios for api data-loading. When using Redux, we can use `componentDidMount` inside of a class-based component to call an Action Creator, which then calls the api for data-loading
+- The Action Creator therefore looks something like this:
+
+```js
+export const fetchPosts = async () => {
+    const response = await jsonPlaceholder.get("/posts");
+
+    return {
+        type: "FETCH_POSTS",
+        payload: response
+    };
+};
+```
+
+However this WILL NOT WORK for 2 reasons:
+
+1) Action creators must return plain JS objects with a typpe property, but fetchPosts is not:
+- We're using `async`-`await` keywords to allow asynchronous data-loading, allow the response to be capture when it finally does come back
+- however, ES2015 syntax converts this into syntax such as this:
+
+```js
+export const fetchPosts = async() => {
+    case 0:
+        return jsonPlaceholder.get("/posts")
+    case 1:
+        return {type: "FETCH_POSTS", payload: response };
+}
+```
+- Initially `case 0` is returned, therefore returns the request itself. This is problematic since an Action Creator must be in JSON format and with a 'type' property. Redux therefore doesn't know how to resolve this and would flag an error.
+
+![](notes_images/async_action_creator.png)
+
+
+2) By the time our action gets to a reducer, we won't have fetched our data:
+- We remove the `async`-`await` syntax from above and instead return a `promise`
+```js
+export const fetchPosts = () => {
+    const promise = jsonPlaceholder.get("/posts");
+    return {
+        type: "FETCH_POSTS",
+        payload: promise
+    };
+};
+```
+- A promise will contain the response once it's ready
+- However, by the time we get the response, our redux cycle has already progressed from:
+  - Action Creator -> Action -> dispatch -> Reducer(Action)
+- The Reducer therefore doesn't have an Action which holds any data, therefore no data is changed
+- NOTE: WE DO NOT HAVE CONTROL OVER WHEN AN ACTION IS DISPATCHED. This is handled by Redux alone, therefore once an Action Creator is called, we just trust Redux does the state change to the Store
+
+
+- Middleware is therefore required to resolve this.
+
+
+# Middlewares:
+
+![](notes_images/redux_cycle_with_middleware.png)
+
+![](notes_images/middleware_in_redux.png)
+
+- A Middleware is a plain JS function which is called with **every** action that's `dispatched`
+
+# Redux Thunk
+- Allows Action Creators to return:
+    1) Action objects (as usual, i.e. does nothing if Action is just a normal Action object)
+    2) Actions as functions:
+        - Invokes function and calls it by passing `dispatch`  and `getState` functions
+        - Redux Thunk, by using `dispatch`, therefore has unlimited power to change the Store
+        - Through `getState` Thunk can read all data in the Store
+- Redux Thunk allows MANUAL DISPATCH OF AN ACTION. We therefore have control over when an Action is dispatched to reducers
+
+![](notes_images/redux_thunk_cycle_for_actions.png)
