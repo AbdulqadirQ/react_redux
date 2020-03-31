@@ -711,3 +711,9 @@ export const selectSong = song => {
 - react-redux: allows linking of React and Redux
 - axios: an alternative to using `fetch` for network requsts, except is easier to use
 - redux-thunk: middleware that allows making network requests directly from redux side of the app
+
+
+# General flow of Data loading with Redux:
+!["Redux Data Loading Flow"](notes_images/redux_data_loading_flow.png)
+
+- Action Creators are used to initiate data loading
