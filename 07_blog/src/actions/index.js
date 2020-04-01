@@ -8,6 +8,6 @@ export const fetchPosts = () => async dispatch => {
     // invoked to return an Action
     dispatch({
         type: "FETCH_POSTS",
-        payload: response
+        payload: response.data
     });
 };
