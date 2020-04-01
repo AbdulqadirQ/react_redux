@@ -821,3 +821,9 @@ myList === [1,2,3]
 > false
 
 ```
+
+# Updating State safely wihtin Reducers:
+![](notes_images/safe_state_update_in_reducers.png)
+
+- This is all vanilla JS
+- _.omit is from the `lodash` libray
