@@ -833,3 +833,37 @@ myList === [1,2,3]
   it's bound to (note the `connect` function does this bining, e.g. `export default connect(mapStateToProps, { fetchUser })(UserHeader);`)
 
 - People like to abstract all redux-related stuff to a different file to the class, therefore the class' usability is increased; can import the class without worrying about dragging the redux stuff along with it
+
+# Memoize
+- Lodash function `_memoize`: memorises the result of a request made with a given set of parameters. Any subsequent requests called with the same parameters would not actually initiate a request, but instead return the value retrieved previously.
+- therefore `_memoize` allows to not make redundant requests when we know the result of the requests would be the same
+
+```js
+// given that getUser is a basic function which makes a network request
+const memoizedGetUser = _.memoize(getUser)
+memoizedGetUser(2) // makes request
+memoizedGetUser(2) // does NOT make a request. Instead returns the original value returned the first time
+memoizedGetUser(3) // makes a request since the parameter passed is different
+```
+
+
+# Converting an Arrow function to more simple syntax:
+
+```js
+export const fetchUser = id => async dispatch => {
+    const response = await jsonPlaceholder.get(`/users/${id}`);
+
+    dispatch({ type: "FETCH_USER", payload: response.data });
+};
+
+// ==>
+
+export const fetchUser = function(id) {
+    return async function(dispatch) {
+        const response = await jsonPlaceholder.get(`/users/${id}`);
+
+        dispatch({ type: "FETCH_USER", payload: response.data });
+    };
+};
+```
+
