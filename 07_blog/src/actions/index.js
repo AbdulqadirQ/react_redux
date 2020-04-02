@@ -6,12 +6,19 @@ export const fetchPostsAndUsers = () => async (dispatch, getState) => {
     // So await IS ONLY used here since we have more logic following this line
     await dispatch(fetchPosts());
 
-    // lodash 'map' gets only 'userId'  properties from getState().posts objects
-    // lodash 'uniq' returns an array of only unique userIds
+    // // lodash 'map' gets only 'userId'  properties from getState().posts objects
+    // // lodash 'uniq' returns an array of only unique userIds
     const userIds = _.uniq(_.map(getState().posts, "userId"));
 
-    // dispatches the response of fetchUser to redux store after we've made the request for specific userId
+    // // dispatches the response of fetchUser to redux store after we've made the request for specific userId
     userIds.forEach(id => dispatch(fetchUser(id)));
+
+    // OPTIONAL REFACTOR OF LINE 11 ONWARDS FROM ABOVE USING _.chain:
+    // _.chain(getState().posts)
+    //     .map("userId")
+    //     .uniq()
+    //     .forEach(id => dispatch(fetchUser(id)))
+    //     .value();   // performs the 'execute()' of this chain
 };
 
 export const fetchPosts = () => async dispatch => {
