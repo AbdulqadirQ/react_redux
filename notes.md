@@ -827,3 +827,9 @@ myList === [1,2,3]
 
 - This is all vanilla JS
 - _.omit is from the `lodash` libray
+
+# ownProps and Usability
+- defining `ownProps` inside a `mapStateToProps` function is the same as using `this.props` inside the class
+  it's bound to (note the `connect` function does this bining, e.g. `export default connect(mapStateToProps, { fetchUser })(UserHeader);`)
+
+- People like to abstract all redux-related stuff to a different file to the class, therefore the class' usability is increased; can import the class without worrying about dragging the redux stuff along with it
