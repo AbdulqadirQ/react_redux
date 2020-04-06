@@ -928,3 +928,6 @@ const PageOne = () => {
 
 - a new anchor tag dumps ALL data in app and retrieves a new index.html file
 - I.E. doing this breaks React
+
+- When using a <Link/> tag, new network requests aren't made for loading the new routes
+- Single-Page App (SPA) - loading/showing only a single index.html document by showing/hiding different components
