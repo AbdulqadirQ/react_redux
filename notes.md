@@ -996,4 +996,9 @@ const App = () => {
     - usually used for when an app needs to access user data **when they're not logged in**
     - e.g. an email server which still needs to collect emails
 2) OAuth for JS Browser Apps:
-    - usually used when an app only needs  access to user data **while they're logged in**
+    - usually used when an app only needs access to user data **while they're logged in**
+
+
+## Javascript, Prototypes and Classes
+-  JS doesn't actually have classes. Instead it has prototypes which are used for inheritance.
+-  Each 'prototype'  (ie class), there is an `__proto__`
