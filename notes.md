@@ -931,3 +931,15 @@ const PageOne = () => {
 
 - When using a <Link/> tag, new network requests aren't made for loading the new routes
 - Single-Page App (SPA) - loading/showing only a single index.html document by showing/hiding different components
+
+## Different Types of Routers:
+- BrowserRouter:
+  - Uses everything after Top Level Domain (localhost:3000/pagetwo)
+
+- HashRouter:
+  - Uses everything after a # as the path (localhost:3000/#/pagetwo)
+
+- MemoryRouter:
+  - Doesn't use the URL to track navigation (localhost:3000)
+
+**NOTE** If routed to a route that doesn't exist, React will always route back to index.html. It will NOT give a 404 erorr, which is what most Apps would do. If React ever does give a 404, it's because the server hasn't been setup correctly
