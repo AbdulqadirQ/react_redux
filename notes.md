@@ -1002,3 +1002,9 @@ const App = () => {
 ## Javascript, Prototypes and Classes
 -  JS doesn't actually have classes. Instead it has prototypes which are used for inheritance.
 -  Each 'prototype'  (ie class), there is an `__proto__`
+
+
+## Redux Dev Tools extension:
+- Redux can be debugged using a URL like this:
+  - `http://localhost:3000/?debug_session=poopi`
+  - The Redux store using this debug session (poopi) will be persisted across browser refreshes
