@@ -985,3 +985,15 @@ const App = () => {
         </div>
     );
 ```
+
+## OAuth:
+- OAuth is used for:
+  - User Authentication
+  - Control of features the OAuth provider provides (e.g. access to location)
+
+- 2 Types of OAuth
+1) OAuth for Servers:
+    - usually used for when an app needs to access user data **when they're not logged in**
+    - e.g. an email server which still needs to collect emails
+2) OAuth for JS Browser Apps:
+    - usually used when an app only needs  access to user data **while they're logged in**
