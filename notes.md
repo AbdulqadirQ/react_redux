@@ -943,3 +943,45 @@ const PageOne = () => {
   - Doesn't use the URL to track navigation (localhost:3000)
 
 **NOTE** If routed to a route that doesn't exist, React will always route back to index.html. It will NOT give a 404 erorr, which is what most Apps would do. If React ever does give a 404, it's because the server hasn't been setup correctly
+
+## Always show header
+- To always show a component no matter where path is routed to, just add the component outside of the <BrowserRouter> component, e.g:
+
+```js
+const App = () => {
+    return (
+        <div>
+            <h1>HEADER!</h1>
+            <BrowserRouter>
+                <div>
+                    <Route path="/" exact component={StreamList} />
+                    <Route path="/streams/new" exact component={StreamCreate} />
+                    <Route path="/streams/edit" exact component={StreamEdit} />
+                    <Route path="/streams/delete" exact component={StreamDelete} />
+                    <Route path="/streams/show" exact component={StreamShow} />
+                </div>
+            </BrowserRouter>
+        </div>
+    );
+```
+NOTE: Can't have any React-Router components (like <Link/>) defined OUTSIDE <BrowserRouter> tags. See below
+
+- Components can also always be shown not specifying a path:
+
+```js
+const App = () => {
+    return (
+        <div>
+            <BrowserRouter>
+                <div>
+                    <Header /> // There's no assigned path so `Header` is always shown
+                    <Route path="/" exact component={StreamList} />
+                    <Route path="/streams/new" exact component={StreamCreate} />
+                    <Route path="/streams/edit" exact component={StreamEdit} />
+                    <Route path="/streams/delete" exact component={StreamDelete} />
+                    <Route path="/streams/show" exact component={StreamShow} />
+                </div>
+            </BrowserRouter>
+        </div>
+    );
+```
