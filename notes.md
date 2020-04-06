@@ -867,3 +867,64 @@ export const fetchUser = function(id) {
 };
 ```
 
+---
+# REACT ROUTER
+
+## Basic React Router example:
+
+```js
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+
+const PageOne = () => {
+    return <div>PageOne</div>;
+};
+
+const PageTwo = () => {
+    return <div>PageTwo</div>;
+};
+const App = () => {
+    return (
+        <div>
+            <BrowserRouter>
+                <div>
+                    <Route path="/" exact component={PageOne} />
+                    <Route path="/pagetwo" component={PageTwo} />
+                </div>
+            </BrowserRouter>
+        </div>
+    );
+};
+
+export default App;
+```
+
+## React Router Gotchas:
+- multple components can be assigned to the same route (by design), e.g:
+```js
+<BrowserRouter>
+    <div>
+        <Route path="/" exact component={PageOne} />
+        <Route path="/" exact component={PageTwo} />
+    </div>
+</BrowserRouter>
+```
+
+-  `exact` keyword requires the exact path defined (e.g. `/` not `/pageone`)
+-  `Route path="/" exact component={PageOne} />` is the same as `Route path="/" exact={true} component={PageOne} />`
+
+### Vanilla HTML <a/> tags should **NOT** be used with React Router
+
+```js
+const PageOne = () => {
+    return (
+        <div>
+            PageOne BAD Routing!!
+            <a href="/pagetwo">Navigate to Page Two</a>
+        </div>
+    )
+}
+```
+
+- a new anchor tag dumps ALL data in app and retrieves a new index.html file
+- I.E. doing this breaks React
