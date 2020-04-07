@@ -1008,3 +1008,22 @@ const App = () => {
 - Redux can be debugged using a URL like this:
   - `http://localhost:3000/?debug_session=poopi`
   - The Redux store using this debug session (poopi) will be persisted across browser refreshes
+
+
+## ES2015 syntax for modifying state objects:
+
+```js
+const streamReducer = (state={}, action) =>{
+    switch(action.type) {
+        case EDIT_STREAM:
+
+            // VANILLA version
+            const newState = {...state};
+            newState[action.payload.id] = action.payload;
+            return newState;
+
+            // ES2015 version (key interpolation syntax)
+            return {... state, [action.payload.id]:  action.payload };
+    }
+}
+```
