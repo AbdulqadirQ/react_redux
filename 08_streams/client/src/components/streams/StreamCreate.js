@@ -13,12 +13,20 @@ class StreamCreate extends React.Component {
         );
     }
 
+    onSubmit(formValues) {
+        console.log(formValues);
+    }
+
     render() {
         return (
             // Field allows normal html forms to be wired-up to redux-form
-            <form className="ui form">
+
+            // props from 'reduxForm' (below) has a 'handleSubmit' function already which just passes
+            // the values submitted to our custom 'onSubmit'. This saves us making an onSubmit eventHandler
+            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form">
                 <Field name="title" component={this.renderInput} label="Enter Title" />
                 <Field name="description" component={this.renderInput} label="Enter Description" />
+                <button className="ui button primary">Submit</button>
             </form>
         );
     }
