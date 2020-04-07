@@ -3,12 +3,14 @@ import { Field, reduxForm } from "redux-form";
 
 class StreamCreate extends React.Component {
     // `Field` tag below passes in some arguments in renderInput to allow forms to work
-    renderInput({ input, label }) {
+    renderInput({ input, label, meta }) {
+        console.log(meta);
         // Adds all values within 'formProps.input' and add them to <input> tag
         return (
             <div className="field">
                 <label>{label}</label>
                 <input {...input} />
+                <div>{meta.error}</div>
             </div>
         );
     }
@@ -32,7 +34,24 @@ class StreamCreate extends React.Component {
     }
 }
 
+// validate is called when user interacts with it in any way
+// formValues.title and formValaues.description match the 'Field' names 'title' and 'description above. This is how
+// redux-form knows to pass in errors object to correct component
+const validate = (formValues) => {
+    const errors = {};
+    if (!formValues.title) {
+        errors.title = "You must enter a title";
+    }
+
+    if (!formValues.description) {
+        errors.description = "You must enter a description";
+    }
+
+    return errors;
+};
+
 // reduxForm takes the place of 'connect' and 'mapStateToProps' to handle Redux things, and passes props to above class
 export default reduxForm({
     form: "streamCreate",
+    validate: validate,
 })(StreamCreate);
