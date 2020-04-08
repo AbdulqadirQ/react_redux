@@ -12,7 +12,7 @@ class StreamEdit extends React.Component {
     }
 
     onSubmit = (formValues) => {
-        console.log(formValues);
+        this.props.editStream(this.props.match.params.id, formValues);
     };
 
     render() {
@@ -26,7 +26,10 @@ class StreamEdit extends React.Component {
                     this.props.stream contains the object {title: <title>, description: <description>} */}
                 {/* _.pick only passes the specified properties from this.props.form so we're not passing more
                     data than we need / should */}
-                <StreamForm initialValues={_.pick(this.props.stream, "title", "description")} />
+                <StreamForm
+                    initialValues={_.pick(this.props.stream, "title", "description")}
+                    onSubmit={this.onSubmit}
+                />
             </div>
         );
     }
