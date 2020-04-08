@@ -1037,3 +1037,7 @@ const streamReducer = (state={}, action) =>{
 # Navigation Problem in App
 - currently the `/` path of the App loads up all streams into the store
 - the `/streams/edit/3` path of the App attempts edit stream with id 3. However if a user navigates to this path directly without initially going to `/`, streams will not have loaded up into the store, therefore stream id 3 will be **undefined**
+
+# Portals
+- Everything in react is rendered within the <div> "#root" inside index.html
+- A portal allows us to render additional components alongside root div
