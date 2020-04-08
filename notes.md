@@ -1041,3 +1041,7 @@ const streamReducer = (state={}, action) =>{
 # Portals
 - Everything in react is rendered within the <div> "#root" inside index.html
 - A portal allows us to render additional components alongside root div
+
+# React Fragment
+- React Fragment is an invisible element that doesn't have any effect on the DOM
+- Is useful since sometimes we cannot return multiple JSX elements  and have to wrap them in a single parent element before returning. Usually we use div for this, however div can sometimes change the DOM
