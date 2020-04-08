@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import { connect } from "react-redux";
 import { fetchStream, editStream } from "../../actions";
@@ -21,9 +22,11 @@ class StreamEdit extends React.Component {
         return (
             <div>
                 <h3>Edit a Stream</h3>
-                {/* initialValues is a specially-named prop to pass in values to the same Field names in StreamForm 
+                {/* initialValues is a specially-named prop to pass in values to the same Field names in StreamForm
                     this.props.stream contains the object {title: <title>, description: <description>} */}
-                <StreamForm initialValues={this.props.stream} onSubmit={this.onSubmit} />
+                {/* _.pick only passes the specified properties from this.props.form so we're not passing more
+                    data than we need / should */}
+                <StreamForm initialValues={_.pick(this.props.stream, "title", "description")} />
             </div>
         );
     }
