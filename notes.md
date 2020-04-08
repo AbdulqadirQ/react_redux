@@ -1033,3 +1033,7 @@ const streamReducer = (state={}, action) =>{
 - BrowserRouter implicitly creates a `History` object to keep track of navigation. However we have no way to access to this `History` object.
 - If we did have control, we could do 'programmatic navigation' using React Router
 - We can therefore use a generic 'Router' instead of 'BrowserRouter', which allows us to create our own custom `History` object which we can control
+
+# Navigation Problem in App
+- currently the `/` path of the App loads up all streams into the store
+- the `/streams/edit/3` path of the App attempts edit stream with id 3. However if a user navigates to this path directly without initially going to `/`, streams will not have loaded up into the store, therefore stream id 3 will be **undefined**
