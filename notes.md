@@ -1027,3 +1027,9 @@ const streamReducer = (state={}, action) =>{
     }
 }
 ```
+
+# History Objcet in React Router
+- Programmatic Navigation: navigating the user around the App based on certain criteria. E.g. Send user to StreamList page after they've just created a stream, instead of keeping them at the StreamCreate page
+- BrowserRouter implicitly creates a `History` object to keep track of navigation. However we have no way to access to this `History` object.
+- If we did have control, we could do 'programmatic navigation' using React Router
+- We can therefore use a generic 'Router' instead of 'BrowserRouter', which allows us to create our own custom `History` object which we can control
